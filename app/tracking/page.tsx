@@ -1200,7 +1200,7 @@ export default function TrackingUsersPage() {
                             <button
                               onClick={() =>
                                 router.push(
-                                  `/tracking/${entry.user._id}?date=${entry.date}`,
+                                  `/tracking/${entry.user!._id}?date=${entry.date}`,
                                 )
                               }
                               className="inline-flex items-center gap-1 text-indigo-600 hover:text-indigo-800"

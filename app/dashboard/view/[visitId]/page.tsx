@@ -729,6 +729,12 @@ export default function VisitViewPage() {
                       </div>
                     </div>
                     <div>
+                      <div className="text-gray-500">Price</div>
+                      <div className="font-medium text-gray-900">
+                        {data.load.pricePaying}
+                      </div>
+                    </div>
+                    <div>
                       <div className="text-gray-500">Vehicles</div>
                       <div className="font-medium text-gray-900">
                         {data.load.numberOfVehicles}

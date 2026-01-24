@@ -1199,8 +1199,11 @@ export default function TrackingUsersPage() {
                           {entry.user?._id && (
                             <button
                               onClick={() =>
+                                // router.push(
+                                //   `/tracking/${entry.user!._id}?date=${entry.date}`,
+                                // )
                                 router.push(
-                                  `/tracking/${entry.user!._id}?date=${entry.date}`,
+                                  `/tracking/session/${entry.sessionId}`,
                                 )
                               }
                               className="inline-flex items-center gap-1 text-indigo-600 hover:text-indigo-800"

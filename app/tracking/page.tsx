@@ -1091,7 +1091,7 @@ export default function TrackingUsersPage() {
         {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
           <div className="flex items-center gap-3">
-            <Users className="h-8 w-8 text-indigo-600" />
+            <Users className="h-8 w-8 text-purple-600" />
             <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">
               Field Tracking History
             </h1>
@@ -1206,7 +1206,7 @@ export default function TrackingUsersPage() {
                                   `/tracking/session/${entry.sessionId}`,
                                 )
                               }
-                              className="inline-flex items-center gap-1 text-indigo-600 hover:text-indigo-800"
+                              className="inline-flex items-center gap-1 text-purple-600 hover:text-purple-800"
                             >
                               View
                               <ArrowRight size={14} />

@@ -33,12 +33,115 @@
 //   );
 // }
 
+// import type { Metadata } from "next";
+// import { Geist, Geist_Mono } from "next/font/google";
+// import Link from "next/link";
+// import Script from "next/script"; // ✅ ADD THIS
+// import "./globals.css";
+// // import "leaflet/dist/leaflet.css";
+
+// const geistSans = Geist({
+//   variable: "--font-geist-sans",
+//   subsets: ["latin"],
+// });
+
+// const geistMono = Geist_Mono({
+//   variable: "--font-geist-mono",
+//   subsets: ["latin"],
+// });
+
+// export const metadata: Metadata = {
+//   title: "Field Tracking Admin",
+//   description: "Admin dashboard for field operations",
+// };
+
+// export default function RootLayout({
+//   children,
+// }: {
+//   children: React.ReactNode;
+// }) {
+//   return (
+//     <html lang="en">
+//       <body
+//         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-100`}
+//       >
+//         {/* ✅ GOOGLE MAP SCRIPT */}
+//         <Script
+//           src={`https://maps.googleapis.com/maps/api/js?key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}`}
+//           strategy="afterInteractive"
+//         />
+
+//         <div className="flex min-h-screen">
+//           {/* SIDEBAR */}
+//           <aside className="w-64 bg-white border-r">
+//             <h1 className="p-4 font-bold text-xl border-b">Admin Dashboard</h1>
+
+//             <nav className="p-3 space-y-2">
+//               <Link
+//                 href="/dashboard"
+//                 className="block px-3 py-2 rounded hover:bg-gray-100"
+//               >
+//                 📊 Dashboard
+//               </Link>
+//               <Link
+//                 href="/user"
+//                 className="block px-3 py-2 rounded hover:bg-gray-100"
+//               >
+//                 👤 Users
+//               </Link>
+
+//               {/* <Link
+//                 href="/Meet"
+//                 className="block px-3 py-2 rounded hover:bg-gray-100"
+//               >
+//                 📍 Meet
+//               </Link> */}
+
+//               <Link
+//                 href="/tracking"
+//                 className="block px-3 py-2 rounded hover:bg-gray-100"
+//               >
+//                 🗺 Tracking History
+//               </Link>
+
+//               <Link
+//                 href="/aggregator"
+//                 className="block px-3 py-2 rounded hover:bg-gray-100"
+//               >
+//                 🏢 Aggregators
+//               </Link>
+
+//               {/* <Link
+//                 href="/load"
+//                 className="block px-3 py-2 rounded hover:bg-gray-100"
+//               >
+//                 🚚 Loads
+//               </Link> */}
+//               <Link
+//                 href="/tasks"
+//                 className="block px-3 py-2 rounded hover:bg-gray-100"
+//               >
+//                 ✅ Tasks
+//               </Link>
+//             </nav>
+//           </aside>
+
+//           {/* MAIN CONTENT */}
+//           <main className="flex-1 p-6 overflow-y-auto">{children}</main>
+//         </div>
+//       </body>
+//     </html>
+//   );
+// }
+
+"use client";
+
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Link from "next/link";
-import Script from "next/script"; // ✅ ADD THIS
+import Script from "next/script";
+import { usePathname } from "next/navigation";
 import "./globals.css";
-// import "leaflet/dist/leaflet.css";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -50,22 +153,25 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export const metadata: Metadata = {
-  title: "Field Tracking Admin",
-  description: "Admin dashboard for field operations",
-};
-
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const pathname = usePathname();
+
+  const linkClass = (path: string) =>
+    `block px-3 py-2 rounded transition ${
+      pathname === path
+        ? "bg-purple-700 text-white font-semibold"
+        : "hover:bg-gray-100 text-gray-800"
+    }`;
+
   return (
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-100`}
       >
-        {/* ✅ GOOGLE MAP SCRIPT */}
         <Script
           src={`https://maps.googleapis.com/maps/api/js?key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}`}
           strategy="afterInteractive"
@@ -77,46 +183,25 @@ export default function RootLayout({
             <h1 className="p-4 font-bold text-xl border-b">Admin Dashboard</h1>
 
             <nav className="p-3 space-y-2">
-              <Link
-                href="/dashboard"
-                className="block px-3 py-2 rounded hover:bg-gray-100"
-              >
+              <Link href="/dashboard" className={linkClass("/dashboard")}>
                 📊 Dashboard
               </Link>
-              <Link
-                href="/user"
-                className="block px-3 py-2 rounded hover:bg-gray-100"
-              >
+
+              <Link href="/user" className={linkClass("/user")}>
                 👤 Users
               </Link>
 
-              {/* <Link
-                href="/Meet"
-                className="block px-3 py-2 rounded hover:bg-gray-100"
-              >
-                📍 Meet
-              </Link> */}
-
-              <Link
-                href="/tracking"
-                className="block px-3 py-2 rounded hover:bg-gray-100"
-              >
+              <Link href="/tracking" className={linkClass("/tracking")}>
                 🗺 Tracking History
               </Link>
 
-              <Link
-                href="/aggregator"
-                className="block px-3 py-2 rounded hover:bg-gray-100"
-              >
+              <Link href="/aggregator" className={linkClass("/aggregator")}>
                 🏢 Aggregators
               </Link>
 
-              {/* <Link
-                href="/load"
-                className="block px-3 py-2 rounded hover:bg-gray-100"
-              >
-                🚚 Loads
-              </Link> */}
+              <Link href="/tasks" className={linkClass("/tasks")}>
+                ✅ Tasks
+              </Link>
             </nav>
           </aside>
 

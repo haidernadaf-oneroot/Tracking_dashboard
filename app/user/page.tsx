@@ -491,7 +491,7 @@ export default function UsersPage() {
         {/* Header + Controls */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
           <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 flex items-center gap-3">
-            <UserCircle className="h-8 w-8 text-indigo-600" />
+            <UserCircle className="h-8 w-8 text-purple-600" />
             All Users
           </h1>
 
@@ -502,7 +502,7 @@ export default function UsersPage() {
                 placeholder="Search by name or phone..."
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                className="w-full pl-10 pr-4 py-2.5 bg-white border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition shadow-sm"
+                className="w-full pl-10 pr-4 py-2.5 bg-white border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition shadow-sm"
               />
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400 pointer-events-none" />
             </div>
@@ -526,7 +526,7 @@ export default function UsersPage() {
         {loading && (
           <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
             <div className="p-12 text-center">
-              <Loader2 className="h-8 w-8 animate-spin text-indigo-600 mx-auto mb-4" />
+              <Loader2 className="h-8 w-8 animate-spin text-purple-600 mx-auto mb-4" />
               <p className="text-gray-600">Loading users...</p>
             </div>
           </div>

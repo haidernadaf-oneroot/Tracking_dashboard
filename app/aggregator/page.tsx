@@ -235,7 +235,7 @@ export default function AggregatorsDashboard() {
                       <td className="sticky right-0 bg-inherit px-4 py-3 text-center">
                         <button
                           onClick={() => handleEdit(a)}
-                          className="inline-flex items-center gap-1.5 rounded-lg bg-blue-600 px-3 py-1.5 text-xs text-white hover:bg-blue-700"
+                          className="inline-flex items-center gap-1.5 rounded-lg bg-purple-600 px-3 py-1.5 text-xs text-white hover:bg-blue-700"
                         >
                           <Pencil size={14} /> Edit
                         </button>

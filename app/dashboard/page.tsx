@@ -417,7 +417,7 @@ export default function DashboardPage() {
         {/* Header + Refresh */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
           <div className="flex items-center gap-3">
-            <Users className="h-8 w-8 text-indigo-600" />
+            <Users className="h-8 w-8 text-purple-600" />
             <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">
               Today's Field Activity
             </h1>
@@ -441,7 +441,7 @@ export default function DashboardPage() {
         {loading && (
           <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
             <div className="p-12 text-center">
-              <Loader2 className="h-8 w-8 animate-spin text-indigo-600 mx-auto mb-4" />
+              <Loader2 className="h-8 w-8 animate-spin text-purple-600 mx-auto mb-4" />
               <p className="text-gray-600">Loading today's activity...</p>
             </div>
           </div>
@@ -550,7 +550,7 @@ export default function DashboardPage() {
                           {hasVisit ? (
                             <Link
                               href={`/dashboard/view/${row.visit?._id}`}
-                              className="inline-flex items-center gap-1.5 text-indigo-600 hover:text-indigo-800 font-medium transition-colors"
+                              className="inline-flex items-center gap-1.5 text-purple-600 hover:text-purple-800 font-medium transition-colors"
                             >
                               View Details
                               <ArrowRight size={14} />

@@ -208,7 +208,7 @@ export default function TrackingDetailPage() {
           <PhotoCard
             title="End"
             imageUrl={session.endImage}
-            time={session.endTime}
+            time={session.endTime ?? undefined}
             location={session.endLocation}
             isEnd
           />

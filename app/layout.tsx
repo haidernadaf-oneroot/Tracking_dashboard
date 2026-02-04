@@ -184,7 +184,7 @@ export default function RootLayout({
 
             <nav className="p-3 space-y-2">
               <Link href="/dashboard" className={linkClass("/dashboard")}>
-                📊 Dashboard
+                📊 Field Activity
               </Link>
 
               <Link href="/user" className={linkClass("/user")}>
@@ -196,7 +196,10 @@ export default function RootLayout({
               </Link>
 
               <Link href="/aggregator" className={linkClass("/aggregator")}>
-                🏢 Aggregators
+                🚚 Aggregators
+              </Link>
+              <Link href="/farmer" className={linkClass("/farmer")}>
+                👨‍🌾 Farmer
               </Link>
 
               <Link href="/tasks" className={linkClass("/tasks")}>

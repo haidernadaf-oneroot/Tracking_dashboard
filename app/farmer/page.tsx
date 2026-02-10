@@ -4100,6 +4100,39 @@ export default function FarmerDashboardPage() {
      EDIT MODAL LOGIC (unchanged)
   ───────────────────────────────────────────────── */
 
+  // const openEdit = (farmer: Farmer) => {
+  //   const initialCrops = farmer.crops?.length
+  //     ? [...farmer.crops]
+  //     : farmer.cropType
+  //       ? [
+  //           {
+  //             name: farmer.cropType,
+  //             price: farmer.cropCost || "",
+  //             additionalInfo: "",
+  //           },
+  //         ]
+  //       : [{ name: "", price: "", additionalInfo: "" }];
+
+  //   setEditFarmer(farmer);
+  //   setEditForm({
+  //     ...farmer,
+  //     crops: initialCrops,
+
+  //     payment: {
+  //       type: farmer.payment?.type || farmer.paymentType || undefined, // ← change "" → undefined
+  //       additionalInfo: farmer.payment?.additionalInfo || "",
+  //     },
+  //     droneSprayingConsent:
+  //       typeof farmer.droneSprayingConsent === "object"
+  //         ? { ...farmer.droneSprayingConsent }
+  //         : { value: !!farmer.droneSprayingConsent, additionalInfo: "" },
+  //     agronomistCareConsent:
+  //       typeof farmer.agronomistCareConsent === "object"
+  //         ? { ...farmer.agronomistCareConsent }
+  //         : { value: !!farmer.agronomistCareConsent, additionalInfo: "" },
+  //   });
+  //   setEditOpen(true);
+  // };
   const openEdit = (farmer: Farmer) => {
     const initialCrops = farmer.crops?.length
       ? [...farmer.crops]
@@ -4118,7 +4151,7 @@ export default function FarmerDashboardPage() {
       ...farmer,
       crops: initialCrops,
       payment: {
-        type: farmer.payment?.type || farmer.paymentType || "",
+        type: farmer.payment?.type || farmer.paymentType || undefined, // ← fixed here
         additionalInfo: farmer.payment?.additionalInfo || "",
       },
       droneSprayingConsent:
@@ -4132,7 +4165,6 @@ export default function FarmerDashboardPage() {
     });
     setEditOpen(true);
   };
-
   const addCrop = () => {
     setEditForm((p) => ({
       ...p,
@@ -4819,7 +4851,7 @@ export default function FarmerDashboardPage() {
                     <label className="block text-sm font-medium mb-1">
                       Payment Type
                     </label>
-                    <select
+                    {/* <select
                       value={editForm.payment?.type || ""}
                       onChange={(e) =>
                         handlePaymentChange("type", e.target.value)
@@ -4827,6 +4859,17 @@ export default function FarmerDashboardPage() {
                       className="w-full border rounded-lg px-3 py-2"
                     >
                       <option value="">None</option>
+                      <option value="cash">Cash</option>
+                      <option value="credit">Credit</option>
+                    </select> */}
+                    <select
+                      value={editForm.payment?.type ?? ""} // ← use ?? "" so undefined becomes ""
+                      onChange={(e) =>
+                        handlePaymentChange("type", e.target.value)
+                      }
+                      className="w-full border rounded-lg px-3 py-2"
+                    >
+                      <option value="">None / Not set</option>
                       <option value="cash">Cash</option>
                       <option value="credit">Credit</option>
                     </select>

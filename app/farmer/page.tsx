@@ -3939,23 +3939,38 @@ export default function FarmerDashboardPage() {
     return "—";
   };
 
+  // const getDroneConsentDisplay = (f: Farmer) => {
+  //   const value =
+  //     typeof f.droneSprayingConsent === "object"
+  //       ? f.droneSprayingConsent?.value
+  //       : !!f.droneSprayingConsent;
+
+  //   if (!value) return "No";
+
+  //   const info =
+  //     typeof f.droneSprayingConsent === "object" &&
+  //     f.droneSprayingConsent?.additionalInfo
+  //       ? f.droneSprayingConsent.additionalInfo
+  //       : "";
+
+  //   return info ? `Yes – ${info}` : "Yes";
+  // };
   const getDroneConsentDisplay = (f: Farmer) => {
-    const value =
-      typeof f.droneSprayingConsent === "object"
-        ? f.droneSprayingConsent?.value
-        : !!f.droneSprayingConsent;
+    const isObject = typeof f.droneSprayingConsent === "object";
+
+    const value = isObject
+      ? !!f.droneSprayingConsent?.value
+      : !!f.droneSprayingConsent;
 
     if (!value) return "No";
 
     const info =
-      typeof f.droneSprayingConsent === "object" &&
-      f.droneSprayingConsent?.additionalInfo
+      isObject && f.droneSprayingConsent?.additionalInfo
         ? f.droneSprayingConsent.additionalInfo
         : "";
 
     return info ? `Yes – ${info}` : "Yes";
   };
-
   const getAgronomistConsentDisplay = (f: Farmer) => {
     const value =
       typeof f.agronomistCareConsent === "object"
@@ -4151,7 +4166,7 @@ export default function FarmerDashboardPage() {
       ...farmer,
       crops: initialCrops,
       payment: {
-        type: farmer.payment?.type || farmer.paymentType || undefined, // ← fixed here
+        type: farmer.payment?.type || farmer.paymentType || undefined, // ← FIXED HERE
         additionalInfo: farmer.payment?.additionalInfo || "",
       },
       droneSprayingConsent:
@@ -4252,15 +4267,37 @@ export default function FarmerDashboardPage() {
                 editForm.payment.additionalInfo?.trim() || undefined,
             }
           : undefined,
+        // droneSprayingConsent: {
+        //   value: !!editForm.droneSprayingConsent?.value,
+        //   additionalInfo:
+        //     editForm.droneSprayingConsent?.additionalInfo?.trim() || undefined,
+        // },
         droneSprayingConsent: {
-          value: !!editForm.droneSprayingConsent?.value,
+          value:
+            typeof editForm.droneSprayingConsent === "object"
+              ? !!editForm.droneSprayingConsent?.value
+              : !!editForm.droneSprayingConsent,
           additionalInfo:
-            editForm.droneSprayingConsent?.additionalInfo?.trim() || undefined,
+            typeof editForm.droneSprayingConsent === "object"
+              ? editForm.droneSprayingConsent?.additionalInfo?.trim() ||
+                undefined
+              : undefined,
         },
+        // agronomistCareConsent: {
+        //   value: !!editForm.agronomistCareConsent?.value,
+        //   additionalInfo:
+        //     editForm.agronomistCareConsent?.additionalInfo?.trim() || undefined,
+        // },
         agronomistCareConsent: {
-          value: !!editForm.agronomistCareConsent?.value,
+          value:
+            typeof editForm.agronomistCareConsent === "object"
+              ? !!editForm.agronomistCareConsent?.value
+              : !!editForm.agronomistCareConsent,
           additionalInfo:
-            editForm.agronomistCareConsent?.additionalInfo?.trim() || undefined,
+            typeof editForm.agronomistCareConsent === "object"
+              ? editForm.agronomistCareConsent?.additionalInfo?.trim() ||
+                undefined
+              : undefined,
         },
       };
 
@@ -4863,7 +4900,7 @@ export default function FarmerDashboardPage() {
                       <option value="credit">Credit</option>
                     </select> */}
                     <select
-                      value={editForm.payment?.type ?? ""} // ← use ?? "" so undefined becomes ""
+                      value={editForm.payment?.type || ""} // ← use ?? "" so undefined becomes ""
                       onChange={(e) =>
                         handlePaymentChange("type", e.target.value)
                       }

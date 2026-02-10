@@ -1076,7 +1076,7 @@ export default function TrackingUsersPage() {
     return new Date(date).toLocaleDateString("en-IN");
   };
 
-  const formatTime = (iso?: string) => {
+  const formatTime = (iso?: string | null) => {
     if (!iso) return "—";
     return new Date(iso).toLocaleTimeString("en-IN", {
       hour: "2-digit",
@@ -1155,6 +1155,9 @@ export default function TrackingUsersPage() {
                       Start
                     </th>
                     <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase">
+                      Ended
+                    </th>
+                    <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase">
                       Status
                     </th>
                     <th className="px-6 py-4 text-right text-xs font-semibold text-gray-600 uppercase">
@@ -1183,6 +1186,9 @@ export default function TrackingUsersPage() {
                         </td>
                         <td className="px-6 py-4 text-gray-600">
                           {formatTime(entry.startTime)}
+                        </td>
+                        <td className="px-6 py-4 text-gray-600">
+                          {formatTime(entry.endTime)}
                         </td>
                         <td className="px-6 py-4">
                           <span

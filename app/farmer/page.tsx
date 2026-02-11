@@ -158,22 +158,39 @@ export default function FarmerDashboardPage() {
 
   //   return info ? `Yes – ${info}` : "Yes";
   // };
+  // const getDroneConsentDisplay = (f: Farmer) => {
+  //   const isObject = typeof f.droneSprayingConsent === "object";
+
+  //   const value = isObject
+  //     ? !!f.droneSprayingConsent?.value
+  //     : !!f.droneSprayingConsent;
+
+  //   if (!value) return "No";
+
+  //   const info =
+  //     isObject && f.droneSprayingConsent?.additionalInfo
+  //       ? f.droneSprayingConsent.additionalInfo
+  //       : "";
+
+  //   return info ? `Yes – ${info}` : "Yes";
+  // };
+
   const getDroneConsentDisplay = (f: Farmer) => {
-    const isObject = typeof f.droneSprayingConsent === "object";
+    if (typeof f.droneSprayingConsent === "object" && f.droneSprayingConsent) {
+      const value = f.droneSprayingConsent.value;
+      const info = f.droneSprayingConsent.additionalInfo?.trim() || "";
 
-    const value = isObject
-      ? !!f.droneSprayingConsent?.value
-      : !!f.droneSprayingConsent;
+      if (!value) return "No";
+      return info ? `Yes – ${info}` : "Yes";
+    }
 
-    if (!value) return "No";
+    if (typeof f.droneSprayingConsent === "boolean") {
+      return f.droneSprayingConsent ? "Yes" : "No";
+    }
 
-    const info =
-      isObject && f.droneSprayingConsent?.additionalInfo
-        ? f.droneSprayingConsent.additionalInfo
-        : "";
-
-    return info ? `Yes – ${info}` : "Yes";
+    return "—";
   };
+
   const getAgronomistConsentDisplay = (f: Farmer) => {
     const value =
       typeof f.agronomistCareConsent === "object"
@@ -732,9 +749,7 @@ export default function FarmerDashboardPage() {
                   <tr className="text-gray-700">
                     <th className="px-6 py-4 text-left font-medium">Name</th>
                     <th className="px-6 py-4 text-left font-medium">Phone</th>
-                    <th className="px-6 py-4 text-left font-medium">
-                      Onboarded By
-                    </th>
+
                     <th className="px-6 py-4 text-left font-medium">Crops</th>
                     <th className="px-6 py-4 text-left font-medium">
                       Location
@@ -764,7 +779,6 @@ export default function FarmerDashboardPage() {
                     <tr key={f._id} className="hover:bg-gray-50">
                       <td className="px-6 py-4 font-medium">{f.name || "—"}</td>
                       <td className="px-6 py-4 font-mono">{f.phone || "—"}</td>
-                      <td className="px-6 py-4">{getOnboardedByName(f)}</td>
 
                       {/* Crops – name, price, additionalInfo all visible */}
                       <td className="px-6 py-4 whitespace-normal leading-relaxed">
@@ -792,18 +806,26 @@ export default function FarmerDashboardPage() {
                       </td>
 
                       <td className="px-6 py-4">
-                        {f.photo ? (
-                          <button onClick={() => setPreviewPhoto(f.photo)}>
-                            <img
-                              src={f.photo}
-                              alt="Farmer"
-                              className="w-10 h-10 object-cover rounded border hover:border-emerald-500"
-                              loading="lazy"
-                            />
-                          </button>
-                        ) : (
-                          <ImageIcon className="text-gray-400" size={32} />
-                        )}
+                        {(() => {
+                          const photo = f.photo;
+
+                          if (typeof photo === "string" && photo.length > 0) {
+                            return (
+                              <button onClick={() => setPreviewPhoto(photo)}>
+                                <img
+                                  src={photo}
+                                  alt="Farmer"
+                                  className="w-10 h-10 object-cover rounded border hover:border-emerald-500"
+                                  loading="lazy"
+                                />
+                              </button>
+                            );
+                          }
+
+                          return (
+                            <ImageIcon className="text-gray-400" size={32} />
+                          );
+                        })()}
                       </td>
 
                       <td className="px-6 py-4">
@@ -1133,10 +1155,15 @@ export default function FarmerDashboardPage() {
                   <label className="block text-sm font-medium mb-2">
                     Drone Spraying Consent
                   </label>
+
                   <div className="flex items-center gap-3 mb-2">
                     <input
                       type="checkbox"
-                      checked={!!editForm.droneSprayingConsent?.value}
+                      checked={
+                        typeof editForm.droneSprayingConsent === "object"
+                          ? !!editForm.droneSprayingConsent?.value
+                          : !!editForm.droneSprayingConsent
+                      }
                       onChange={(e) =>
                         handleConsentChange(
                           "droneSprayingConsent",
@@ -1147,9 +1174,14 @@ export default function FarmerDashboardPage() {
                     />
                     <span>Consent given</span>
                   </div>
+
                   <input
                     placeholder="Notes / acres / date / additional info"
-                    value={editForm.droneSprayingConsent?.additionalInfo || ""}
+                    value={
+                      typeof editForm.droneSprayingConsent === "object"
+                        ? editForm.droneSprayingConsent?.additionalInfo || ""
+                        : ""
+                    }
                     onChange={(e) =>
                       handleConsentChange(
                         "droneSprayingConsent",
@@ -1166,10 +1198,15 @@ export default function FarmerDashboardPage() {
                   <label className="block text-sm font-medium mb-2">
                     Agronomist Care Consent
                   </label>
+
                   <div className="flex items-center gap-3 mb-2">
                     <input
                       type="checkbox"
-                      checked={!!editForm.agronomistCareConsent?.value}
+                      checked={
+                        typeof editForm.agronomistCareConsent === "object"
+                          ? !!editForm.agronomistCareConsent?.value
+                          : !!editForm.agronomistCareConsent
+                      }
                       onChange={(e) =>
                         handleConsentChange(
                           "agronomistCareConsent",
@@ -1180,9 +1217,14 @@ export default function FarmerDashboardPage() {
                     />
                     <span>Consent given</span>
                   </div>
+
                   <input
                     placeholder="Notes / agreement details / additional info"
-                    value={editForm.agronomistCareConsent?.additionalInfo || ""}
+                    value={
+                      typeof editForm.agronomistCareConsent === "object"
+                        ? editForm.agronomistCareConsent?.additionalInfo || ""
+                        : ""
+                    }
                     onChange={(e) =>
                       handleConsentChange(
                         "agronomistCareConsent",

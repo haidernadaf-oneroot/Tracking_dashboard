@@ -134,20 +134,97 @@
 //   );
 // }
 
+// "use client";
+
+// import type { Metadata } from "next";
+// import { Geist, Geist_Mono } from "next/font/google";
+// import Link from "next/link";
+// import Script from "next/script";
+// import { usePathname } from "next/navigation";
+// import "./globals.css";
+
+// const geistSans = Geist({
+//   variable: "--font-geist-sans",
+//   subsets: ["latin"],
+// });
+
+// const geistMono = Geist_Mono({
+//   variable: "--font-geist-mono",
+//   subsets: ["latin"],
+// });
+
+// export default function RootLayout({
+//   children,
+// }: {
+//   children: React.ReactNode;
+// }) {
+//   const pathname = usePathname();
+
+//   const linkClass = (path: string) =>
+//     `block px-3 py-2 rounded transition ${
+//       pathname === path
+//         ? "bg-purple-700 text-white font-semibold"
+//         : "hover:bg-gray-100 text-gray-800"
+//     }`;
+
+//   return (
+//     <html lang="en">
+//       <body
+//         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-100`}
+//       >
+//         <Script
+//           src={`https://maps.googleapis.com/maps/api/js?key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}`}
+//           strategy="afterInteractive"
+//         />
+
+//         <div className="flex min-h-screen">
+//           {/* SIDEBAR */}
+//           <aside className="w-64 bg-white border-r">
+//             <h1 className="p-4 font-bold text-xl border-b">Admin Dashboard</h1>
+
+//             <nav className="p-3 space-y-2">
+//               <Link href="/dashboard" className={linkClass("/dashboard")}>
+//                 📊 Field Activity
+//               </Link>
+
+//               <Link href="/user" className={linkClass("/user")}>
+//                 👤 Users
+//               </Link>
+
+//               <Link href="/tracking" className={linkClass("/tracking")}>
+//                 🗺 Tracking History
+//               </Link>
+
+//               <Link href="/aggregator" className={linkClass("/aggregator")}>
+//                 🚚 Aggregators
+//               </Link>
+//               <Link href="/farmer" className={linkClass("/farmer")}>
+//                 👨‍🌾 Farmer
+//               </Link>
+
+//               <Link href="/tasks" className={linkClass("/tasks")}>
+//                 ✅ Tasks
+//               </Link>
+//             </nav>
+//           </aside>
+
+//           {/* MAIN CONTENT */}
+//           <main className="flex-1 p-6 overflow-y-auto">{children}</main>
+//         </div>
+//       </body>
+//     </html>
+//   );
+// }
 "use client";
 
-import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Link from "next/link";
 import Script from "next/script";
 import { usePathname } from "next/navigation";
+import { useState } from "react";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
+const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
@@ -159,9 +236,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const linkClass = (path: string) =>
-    `block px-3 py-2 rounded transition ${
+    `block px-4 py-3 rounded-lg transition text-base ${
       pathname === path
         ? "bg-purple-700 text-white font-semibold"
         : "hover:bg-gray-100 text-gray-800"
@@ -170,46 +248,104 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-100`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-50 min-h-screen`}
       >
         <Script
           src={`https://maps.googleapis.com/maps/api/js?key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}`}
           strategy="afterInteractive"
         />
 
-        <div className="flex min-h-screen">
-          {/* SIDEBAR */}
-          <aside className="w-64 bg-white border-r">
-            <h1 className="p-4 font-bold text-xl border-b">Admin Dashboard</h1>
+        {/* Mobile header with hamburger */}
+        <header className="lg:hidden bg-white border-b sticky top-0 z-30">
+          <div className="flex items-center justify-between px-4 py-3">
+            <h1 className="font-bold text-xl">Admin Dashboard</h1>
+            <button
+              onClick={() => setSidebarOpen(!sidebarOpen)}
+              className="text-2xl focus:outline-none"
+              aria-label="Toggle menu"
+            >
+              {sidebarOpen ? "✕" : "☰"}
+            </button>
+          </div>
+        </header>
 
-            <nav className="p-3 space-y-2">
-              <Link href="/dashboard" className={linkClass("/dashboard")}>
+        <div className="flex min-h-screen">
+          {/* Sidebar – hidden on mobile by default */}
+          <aside
+            className={`
+              fixed inset-y-0 left-0 z-40 w-72 bg-white border-r transform transition-transform duration-300 lg:translate-x-0
+              ${sidebarOpen ? "translate-x-0" : "-translate-x-full"}
+              lg:static lg:w-64 lg:block overflow-y-auto
+            `}
+          >
+            {/* Logo / title – only on desktop sidebar */}
+            <div className="p-5 border-b hidden lg:block">
+              <h1 className="font-bold text-2xl">Admin Dashboard</h1>
+            </div>
+
+            <nav className="p-4 space-y-1.5 lg:p-3">
+              <Link
+                href="/dashboard"
+                className={linkClass("/dashboard")}
+                onClick={() => setSidebarOpen(false)}
+              >
                 📊 Field Activity
               </Link>
-
-              <Link href="/user" className={linkClass("/user")}>
+              <Link
+                href="/user"
+                className={linkClass("/user")}
+                onClick={() => setSidebarOpen(false)}
+              >
                 👤 Users
               </Link>
-
-              <Link href="/tracking" className={linkClass("/tracking")}>
+              <Link
+                href="/tracking"
+                className={linkClass("/tracking")}
+                onClick={() => setSidebarOpen(false)}
+              >
                 🗺 Tracking History
               </Link>
-
-              <Link href="/aggregator" className={linkClass("/aggregator")}>
+              <Link
+                href="/aggregator"
+                className={linkClass("/aggregator")}
+                onClick={() => setSidebarOpen(false)}
+              >
                 🚚 Aggregators
               </Link>
-              <Link href="/farmer" className={linkClass("/farmer")}>
+              <Link
+                href="/farmer"
+                className={linkClass("/farmer")}
+                onClick={() => setSidebarOpen(false)}
+              >
                 👨‍🌾 Farmer
               </Link>
-
-              <Link href="/tasks" className={linkClass("/tasks")}>
+              <Link
+                href="/tasks"
+                className={linkClass("/tasks")}
+                onClick={() => setSidebarOpen(false)}
+              >
                 ✅ Tasks
               </Link>
             </nav>
           </aside>
 
-          {/* MAIN CONTENT */}
-          <main className="flex-1 p-6 overflow-y-auto">{children}</main>
+          {/* Overlay when sidebar is open on mobile */}
+          {sidebarOpen && (
+            <div
+              className="fixed inset-0 bg-black/40 z-30 lg:hidden"
+              onClick={() => setSidebarOpen(false)}
+            />
+          )}
+
+          {/* Main content */}
+          <main className="flex-1 p-4 sm:p-6 lg:p-8 overflow-y-auto">
+            {/* Mobile title (optional) */}
+            <h2 className="lg:hidden text-xl font-semibold mb-5 capitalize">
+              {pathname.split("/").pop() || "Dashboard"}
+            </h2>
+
+            {children}
+          </main>
         </div>
       </body>
     </html>

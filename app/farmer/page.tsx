@@ -142,6 +142,14 @@ export default function FarmerDashboardPage() {
     return "—";
   };
 
+  const formatDate = (dateStr?: string) => {
+    if (!dateStr) return "—";
+    return new Date(dateStr).toLocaleString("en-IN", {
+      dateStyle: "medium",
+      timeStyle: "short",
+    });
+  };
+
   // const getDroneConsentDisplay = (f: Farmer) => {
   //   const value =
   //     typeof f.droneSprayingConsent === "object"
@@ -749,6 +757,9 @@ export default function FarmerDashboardPage() {
                   <tr className="text-gray-700">
                     <th className="px-6 py-4 text-left font-medium">Name</th>
                     <th className="px-6 py-4 text-left font-medium">Phone</th>
+                    <th className="px-6 py-4 text-left font-medium">
+                      Onboarded At
+                    </th>
 
                     <th className="px-6 py-4 text-left font-medium">Crops</th>
                     <th className="px-6 py-4 text-left font-medium">
@@ -779,6 +790,9 @@ export default function FarmerDashboardPage() {
                     <tr key={f._id} className="hover:bg-gray-50">
                       <td className="px-6 py-4 font-medium">{f.name || "—"}</td>
                       <td className="px-6 py-4 font-mono">{f.phone || "—"}</td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
+                        {f.createdAt ? formatDate(f.createdAt) : "—"}
+                      </td>
 
                       {/* Crops – name, price, additionalInfo all visible */}
                       <td className="px-6 py-4 whitespace-normal leading-relaxed">

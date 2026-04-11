@@ -1100,7 +1100,7 @@ export default function TrackingUsersPage() {
           <button
             onClick={fetchHistory}
             disabled={loading}
-            className="inline-flex items-center gap-2 px-5 py-2.5 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-60 transition shadow-sm"
+            className="inline-flex items-center gap-2 px-5 py-2.5 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-60 transition shadow-sm text-black"
           >
             {loading ? (
               <Loader2 className="h-4 w-4 animate-spin" />
@@ -1175,7 +1175,7 @@ export default function TrackingUsersPage() {
                         key={entry.sessionId}
                         className="hover:bg-indigo-50/30"
                       >
-                        <td className="px-6 py-4 font-medium">
+                        <td className="px-6 py-4 font-medium text-gray-600">
                           {entry.user?.name || "Unknown"}
                         </td>
                         <td className="px-6 py-4 font-mono text-gray-600">

@@ -426,7 +426,7 @@ export default function DashboardPage() {
           <button
             onClick={fetchDashboard}
             disabled={loading}
-            className="inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-60 transition shadow-sm whitespace-nowrap"
+            className="inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-60 transition shadow-sm whitespace-nowrap text-black"
           >
             {loading ? (
               <Loader2 className="h-4 w-4 animate-spin" />

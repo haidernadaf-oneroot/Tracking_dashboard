@@ -566,7 +566,7 @@ export default function FarmerDashboardPage() {
           <div className="flex items-center gap-3 flex-wrap">
             <button
               onClick={fetchFarmers}
-              className="flex items-center gap-2 px-4 py-2 bg-white border rounded-lg hover:bg-gray-50 shadow-sm"
+              className="flex items-center gap-2 px-4 py-2 bg-white border rounded-lg hover:bg-gray-50 shadow-sm text-black"
             >
               <RefreshCw size={16} />
               Refresh
@@ -600,7 +600,7 @@ export default function FarmerDashboardPage() {
                 setSelectedUserId(e.target.value);
                 setPage(1);
               }}
-              className="w-full border rounded-lg px-3 py-2.5 text-sm focus:border-emerald-500 focus:ring-1 focus:ring-emerald-200"
+              className="w-full border rounded-lg px-3 py-2.5 text-sm focus:border-emerald-500 focus:ring-1 focus:ring-emerald-200 text-black"
             >
               <option value="">All users</option>
               {users.map((u) => (
@@ -622,7 +622,7 @@ export default function FarmerDashboardPage() {
                 setPage(1);
               }}
               disabled={!!selectedUserId}
-              className="w-full border rounded-lg px-3 py-2.5 text-sm focus:border-emerald-500 focus:ring-1 focus:ring-emerald-200"
+              className="w-full border rounded-lg px-3 py-2.5 text-sm focus:border-emerald-500 focus:ring-1 focus:ring-emerald-200 text-black"
             >
               <option value="">All Crops</option>
               {[
@@ -655,7 +655,7 @@ export default function FarmerDashboardPage() {
                 setPage(1);
               }}
               disabled={!!selectedUserId}
-              className="w-full border rounded-lg px-3 py-2.5 text-sm focus:border-emerald-500 focus:ring-1 focus:ring-emerald-200"
+              className="w-full border rounded-lg px-3 py-2.5 text-sm focus:border-emerald-500 focus:ring-1 focus:ring-emerald-200 text-black"
             >
               <option value="">All States</option>
               {states.map((s) => (
@@ -677,7 +677,7 @@ export default function FarmerDashboardPage() {
                 setPage(1);
               }}
               disabled={!stateFilter || !!selectedUserId}
-              className="w-full border rounded-lg px-3 py-2.5 text-sm focus:border-emerald-500 focus:ring-1 focus:ring-emerald-200"
+              className="w-full border rounded-lg px-3 py-2.5 text-sm focus:border-emerald-500 focus:ring-1 focus:ring-emerald-200 text-black"
             >
               <option value="">All Districts</option>
               {districts.map((d) => (
@@ -699,7 +699,7 @@ export default function FarmerDashboardPage() {
                 setPage(1);
               }}
               disabled={!districtFilter || !!selectedUserId}
-              className="w-full border rounded-lg px-3 py-2.5 text-sm focus:border-emerald-500 focus:ring-1 focus:ring-emerald-200"
+              className="w-full border rounded-lg px-3 py-2.5 text-sm focus:border-emerald-500 focus:ring-1 focus:ring-emerald-200 text-black"
             >
               <option value="">All Taluks</option>
               {taluks.map((t) => (
@@ -721,7 +721,7 @@ export default function FarmerDashboardPage() {
                 setPage(1);
               }}
               disabled={!talukFilter || !!selectedUserId}
-              className="w-full border rounded-lg px-3 py-2.5 text-sm focus:border-emerald-500 focus:ring-1 focus:ring-emerald-200"
+              className="w-full border rounded-lg px-3 py-2.5 text-sm focus:border-emerald-500 focus:ring-1 focus:ring-emerald-200 text-black"
             >
               <option value="">All Villages</option>
               {villages.map((v) => (
@@ -741,7 +741,7 @@ export default function FarmerDashboardPage() {
           </div>
         ) : error ? (
           <div className="bg-red-50 border border-red-200 rounded-xl p-10 text-center">
-            <AlertCircle className="h-10 w-10 text-red-500 mx-auto" />
+            <AlertCircle className="h-10 w-10 text-black mx-auto" />
             <p className="mt-4 text-red-700">{error}</p>
           </div>
         ) : farmers.length === 0 ? (
@@ -785,7 +785,7 @@ export default function FarmerDashboardPage() {
                     <th className="px-6 py-4 text-left font-medium">Actions</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y">
+                <tbody className="divide-y text-black">
                   {farmers.map((f) => (
                     <tr key={f._id} className="hover:bg-gray-50">
                       <td className="px-6 py-4 font-medium">{f.name || "—"}</td>

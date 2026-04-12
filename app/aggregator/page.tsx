@@ -163,7 +163,7 @@ export default function AggregatorsDashboard() {
                 </tr>
               </thead>
 
-              <tbody className="divide-y">
+              <tbody className="divide-y text-black">
                 {loading ? (
                   <tr>
                     <td colSpan={16} className="py-16 text-center">
